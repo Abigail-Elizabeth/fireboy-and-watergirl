@@ -65,8 +65,7 @@ let fireboy = {
     xChange: 0,
     yChange: 0,
     in_air: false,
-    door: false,
-    char_name: "fireboy"
+    door: false
 }
 let fireboyImage = new Image();
     // Movement booleans
@@ -85,8 +84,7 @@ let watergirl = {
     xChange: 0,
     yChange: 0,
     in_air: false,
-    door: false,
-    char_name: "watergirl"
+    door: false
 }
 let watergirlImage = new Image();
     // Movement booleans
@@ -215,7 +213,7 @@ let lifts = [
         width: 16,
         height: 16,
         x: 66 * 16,
-        y: 13* 16,
+        y: 13 * 16,
         down: 19 * 16,
         up: 13 * 16,
         color: "green",
@@ -244,6 +242,28 @@ let doors = [
         canvas_width: 64,
         canvas_height: 64,
         open: false
+    }
+];
+let frames = [
+    {
+        image_x: 4 * 16,
+        image_y: 4 * 16,
+        image_width: 32,
+        image_height: 32,
+        canvas_x: 59 * 16,
+        canvas_y: 2 * 16,
+        canvas_width: 64,
+        canvas_height: 64
+    },
+    {
+        image_x: 4 * 16,
+        image_y: 4 * 16,
+        image_width: 32,
+        image_height: 32,
+        canvas_x: 63 * 16,
+        canvas_y: 2 * 16,
+        canvas_width: 64,
+        canvas_height: 64
     }
 ];
 let floor;
@@ -312,8 +332,7 @@ function draw() {
     // moveFloatingLifts(lifts[0], lifts[0].down);
     // moveFloatingLifts(lifts[1], lifts[1].down);
 
-    checkDoors(fireboy);
-    checkDoors(watergirl);
+    checkDoors();
 }
 
 // Draws the background onto the canvas
@@ -355,9 +374,12 @@ function drawObjects() {
         context.drawImage(objectsImage,
             doors[i].image_x, doors[i].image_y, doors[i].image_width, doors[i].image_height,                       
             doors[i].canvas_x, doors[i].canvas_y, doors[i].canvas_width, doors[i].canvas_height);
+    }
+    for (let i in frames) {
+        console.log("hi");
         context.drawImage(objectsImage,
-            4 * 16, 4 * 16, 32, 32,
-            doors[i].canvas_x, doors[i].canvas_y, doors[i].canvas_width, doors[i].canvas_height);
+            frames[i].image_x, frames[i].image_y, frames[i].image_width, frames[i].image_height,                       
+            frames[i].canvas_x, frames[i].canvas_y, frames[i].canvas_width, frames[i].canvas_height);
     }
 }
 
@@ -659,12 +681,43 @@ function moveFloatingLifts(lifts, index, stop) {
     return;
 }
 
-// checking to see if the characters are infront of the doors
-function checkDoors(character) {
-    // 
+// checking to see if the characters are in front of the doors
+function checkDoors() {
+    if (doors[0].open && doors[1].open) {
+        stop("You Win!");
+        return;
+    }
+    if (isColliding(fireboy, {x: doors[0].canvas_x + 16, y: doors[0].canvas_y, width: doors[0].canvas_width - 32, height: doors[0].canvas_height})) {
+        updateDoorAnimation(fireboy);
+    }
+    if (isColliding(watergirl, {x: doors[1].canvas_x + 16, y: doors[1].canvas_y, width: doors[1].canvas_width - 32, height: doors[1].canvas_height})) {
+        updateDoorAnimation(watergirl);
+    }
 }
 
 // Animates the doors
+function updateDoorAnimation(character) {
+    if (character == fireboy) {
+        if (doors[0].canvas_height == 0) {
+            doors[0].open = true;
+            return;
+        } else {
+            doors[0].image_x += 1;
+            doors[0].image_height -= 1;
+            doors[0].canvas_height -= 2;
+        }
+        console.log("hi");
+    } else if (character == watergirl) {
+        if (doors[1].canvas_height == 0) {
+            doors[1].open = true;
+            return;
+        } else {
+            doors[1].image_x += 1;
+            doors[1].image_height -= 1;
+            doors[1].canvas_height -= 2;
+        }
+    }
+}
 
 // Turns on movement for characters based on the key presses 
 function activate(event) {
