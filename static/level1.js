@@ -33,7 +33,7 @@ let background = [
     [10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 16, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 14],
     [10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  8],
     [10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  8],
-    [21,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 40, 41, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  8],
+    [21,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  2, 41, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  8],
     [13, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 17, 14,  9,  9, 48, 49, 40, 41, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  8],
     [10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  8,  9,  9,  9,  9, 48, 49, 40, 41, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  8],
     [10, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1, 16, 17, 17, 14,  9,  9,  9, 48, 49,  1,  1,  1,  1, 37, 38, 38, 38, 39,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1,  1, 40, 41, -1, -1, -1, -1, -1, -1, -1, -1, -1, -1,  8],
@@ -64,7 +64,9 @@ let fireboy = {
     frameY: 0,
     xChange: 0,
     yChange: 0,
-    in_air: false
+    in_air: false,
+    door: false,
+    char_name: "fireboy"
 }
 let fireboyImage = new Image();
     // Movement booleans
@@ -82,7 +84,9 @@ let watergirl = {
     frameY: 0,
     xChange: 0,
     yChange: 0,
-    in_air: false
+    in_air: false,
+    door: false,
+    char_name: "watergirl"
 }
 let watergirlImage = new Image();
     // Movement booleans
@@ -108,9 +112,49 @@ let diamonds = [
         height: 16,
         x: 49 * 16,
         y: 37 * 16
+    },
+    {
+        frameX: 0,
+        frameY: 0,
+        width: 16,
+        height: 16,
+        x: 10 * 16,
+        y: 18 * 16
+    },
+    {
+        frameX: 1,
+        frameY: 0,
+        width: 16,
+        height: 16,
+        x: 35 * 16,
+        y: 18 * 16
+    },
+    {
+        frameX: 1,
+        frameY: 0,
+        width: 16,
+        height: 16,
+        x: 2 * 16,
+        y: 6 * 16
+    },
+    {
+        frameX: 0,
+        frameY: 0,
+        width: 16,
+        height: 16,
+        x: 13 * 16,
+        y: 5 * 16
+    },
+    {
+        frameX: 1,
+        frameY: 0,
+        width: 16,
+        height: 16,
+        x: 43 * 16,
+        y: 5 * 16
     }
 ]
-let other_objects = [
+let buttons = [
     {   // button
         frameX: 2,
         frameY: 0,
@@ -120,18 +164,6 @@ let other_objects = [
         y: 25 * 16,
         button: false,
         color: "white"
-    },
-    {   // lift
-        frameX: 0,
-        frameY: 1,
-        width: 16,
-        height: 16,
-        x: 2 * 16,
-        y: 19 * 16,
-        down: 23 * 16,
-        up: 19 * 16,
-        color: "white",
-        button: false
     },
     {   // button
         frameX: 2,
@@ -153,6 +185,30 @@ let other_objects = [
         button: false,
         color: "green"
     },
+    {   // button
+        frameX: 4,
+        frameY: 0,
+        width: 16,
+        height: 16,
+        x: 59 * 16,
+        y: 12 * 16,
+        button: false,
+        color: "green"
+    }
+];
+let lifts = [
+    {   // lift
+        frameX: 0,
+        frameY: 1,
+        width: 16,
+        height: 16,
+        x: 2 * 16,
+        y: 19 * 16,
+        down: 23 * 16,
+        up: 19 * 16,
+        color: "white",
+        button: true
+    },
     {   // lift
         frameX: 2,
         frameY: 1,
@@ -163,17 +219,31 @@ let other_objects = [
         down: 19 * 16,
         up: 13 * 16,
         color: "green",
-        button: false
+        button: true
     },
-    {   // button
-        frameX: 4,
-        frameY: 0,
-        width: 16,
-        height: 16,
-        x: 59 * 16,
-        y: 12 * 16,
-        button: false,
-        color: "green"
+];
+let doors = [
+    {
+        image_x: 0,
+        image_y: 4 * 16,
+        image_width: 32,
+        image_height: 32,
+        canvas_x: 59 * 16,
+        canvas_y: 2 * 16,
+        canvas_width: 64,
+        canvas_height: 64,
+        open: false
+    },
+    {
+        image_x: 2 * 16,
+        image_y: 4 * 16,
+        image_width: 32,
+        image_height: 32,
+        canvas_x: 63 * 16,
+        canvas_y: 2 * 16,
+        canvas_width: 64,
+        canvas_height: 64,
+        open: flase
     }
 ];
 let floor;
@@ -188,9 +258,9 @@ function init() {
     // Characters' positioning or spawning points
     floor = canvas.height - 32;
     fireboy.x = (canvas.width / 2) - fireboy.width;
-    fireboy.y = floor - fireboy.height;
-    watergirl.x = (canvas.height / 2) - watergirl.width;  
-    watergirl.y = floor - watergirl.height;
+    fireboy.y = 1 * 16;     // 3 * 16 drop down when spawn in
+    watergirl.x = 4 * 16;  
+    watergirl.y = 28 * 16;  // 3 * 16 drop down when spawn in
     
     window.addEventListener("keydown", activate, false);
     window.addEventListener("keyup", deactivate, false);
@@ -237,10 +307,13 @@ function draw() {
     // checking object collisions
     checkDiamondCollision(fireboy);
     checkDiamondCollision(watergirl);
-    checkButtons(fireboy, other_objects);
-    checkButtons(watergirl, other_objects);
-    moveFloatingLifts(other_objects[1], other_objects[1].down);
-    moveFloatingLifts(other_objects[4], other_objects[4].down);
+    checkButtons(fireboy, buttons, lifts);
+    checkButtons(watergirl, buttons, lifts);
+    // moveFloatingLifts(lifts[0], lifts[0].down);
+    // moveFloatingLifts(lifts[1], lifts[1].down);
+
+    checkDoors(fireboy);
+    checkDoors(watergirl);
 }
 
 // Draws the background onto the canvas
@@ -266,17 +339,25 @@ function drawObjects() {
             diamonds[i].frameX * diamonds[i].width, diamonds[i].frameY * diamonds[i].height, diamonds[i].width, diamonds[i].height,                       
             diamonds[i].x, diamonds[i].y, diamonds[i].width, diamonds[i].height);
     }
-    for (let i = 0; i < other_objects.length; i++) {
-        let obj = other_objects[i];
-        if (obj.frameY == 0) {
-            context.drawImage(objectsImage,
-                obj.frameX * obj.width, obj.frameY * obj.height, obj.width, obj.height,                       
-                obj.x, obj.y, obj.width, obj.height);
-        } else if (obj.frameY == 1 || obj.frameY == 3) {
-            context.drawImage(objectsImage,
-                obj.frameX * obj.width, obj.frameY * obj.height, obj.width, obj.height,                       
-                obj.x, obj.y, obj.width * 2, obj.height * 2);
-        }
+    for (let i = 0; i < buttons.length; i++) {
+        let obj = buttons[i];
+        context.drawImage(objectsImage,
+            obj.frameX * obj.width, obj.frameY * obj.height, obj.width, obj.height,                       
+            obj.x, obj.y, obj.width, obj.height);
+    }
+    for (let i = 0; i < lifts.length; i++) {
+        let obj = lifts[i];
+        context.drawImage(objectsImage,
+            obj.frameX * obj.width, obj.frameY * obj.height, obj.width, obj.height,                       
+            obj.x, obj.y, obj.width * 2, obj.height * 2);
+    }
+    for (let i in doors) {
+        context.drawImage(objectsImage,
+            doors[i].image_x, doors[i].image_y, doors[i].image_width, doors[i].image_height,                       
+            doors[i].canvas_x, doors[i].canvas_y, doors[i].canvas_width, doors[i].canvas_height);
+        context.drawImage(objectsImage,
+            4 * 16, 4 * 16, 32, 32,
+            doors[i].canvas_x, doors[i].canvas_y, doors[i].canvas_width, doors[i].canvas_height);
     }
 }
 
@@ -401,18 +482,14 @@ function getSurroundingTilesAndObjects(character) {
             }
         }
     }
-    for (let i in other_objects) {
-        if ((other_objects[i].frameX == 0 || other_objects[i].frameX == 2) && 
-            other_objects[i].frameY == 1) {
-            let object = {
-                x: other_objects[i].x,
-                y: other_objects[i].y,
-                width: other_objects[i].width * 2,
-                height: other_objects[i].height * 2
-            }
-            surroundingTilesAndObjects.push(object);
-
+    for (let i = 0; i < lifts.length; i++) {
+        let lift = {
+            x: lifts[i].x,
+            y: lifts[i].y,
+            width: lifts[i].width * 2,
+            height: lifts[i].height * 2
         }
+        surroundingTilesAndObjects.push(lift)
     }
     return surroundingTilesAndObjects;
 }
@@ -541,33 +618,25 @@ function checkDiamondCollision(character) {
 }
 
 // Checking all buttons
-function checkButtons(character, objects) {
+function checkButtons(character, buttons, lifts) {
     // check if either character has collided with a button
-    for (let i in objects) {
-        if (objects[i].frameY == 0) {
-            let button = objects[i];
-            if (isColliding(character, button)) {
-                button.button = true;
-            } else {
-                button.button = false;
-            }
+    for (let i = 0; i < buttons.length; i++) {
+        if (isColliding(character, buttons[i])) {
+            buttons[i].button = true;
+        } else {
+            buttons[i].button = false;
         }
     }
 
     // do the necessary action based on which button has been pushed
-    for (let i in objects) {
-        if (objects[i].frameY == 0) {     // all buttons
-            for (let j in objects) {
-                if (objects[j].frameY == 1) {     // all lifts
-                    if (objects[i].color == objects[j].color) {     // checking button and lift connection
-                        objects[j].button = objects[i].button;
-                        // move floating elevators(object, stop point)                        
-                        if (objects[i].button) {
-                            moveFloatingLifts(objects[j], objects[j].down);
-                        } else {
-                            moveFloatingLifts(objects[j], objects[j].up);
-                        }
-                    }
+    for (let i = 0; i < buttons.length; i++) {
+        for (let j = 0; j < lifts.length; j++) {
+            if (buttons[i].color == lifts[j].color) {
+                lifts[j].button = buttons[i].button;
+                if (lifts[j].button) {
+                    moveFloatingLifts(lifts, j, lifts[j].down)
+                } else {
+                    moveFloatingLifts(lifts, j, lifts[j].up)
                 }
             }
         }
@@ -575,20 +644,27 @@ function checkButtons(character, objects) {
 }
 
 // Move the floating objects a few units in a certain direction
-function moveFloatingLifts(lift, stop) {
-    if (lift.button) {
-        if (lift.y < stop) {
+function moveFloatingLifts(lifts, index, stop) {
+    if (lifts[index].button) {      // checks if the lifts has to go down or up
+        if (lifts[index].y < stop) {
             console.log(stop);
-            lift.y = lift.y + 0.5;
-            console.log(lift.y);
+            lifts[index].y = lifts[index].y + 0.5;
+            console.log(lifts[index].y);
         }
     } else {
-        if (lift.y > stop) {
-            lift.y = lift.y - 0.5;
+        if (lifts[index].y > stop) {
+            lifts[index].y = lifts[index].y - 0.5;
         }
     }
     return;
 }
+
+// checking to see if the characters are infront of the doors
+function checkDoors(character) {
+    // 
+}
+
+// Animates the doors
 
 // Turns on movement for characters based on the key presses 
 function activate(event) {
