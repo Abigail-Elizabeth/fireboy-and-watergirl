@@ -243,7 +243,7 @@ let doors = [
         canvas_y: 2 * 16,
         canvas_width: 64,
         canvas_height: 64,
-        open: flase
+        open: false
     }
 ];
 let floor;
